@@ -38,6 +38,14 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\TankController.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\AudioHelper.cs" />
+     <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Killer.cs" />
+     <Compile Include="Assets\Scripts\HealthIncrease.cs" />
+     <Compile Include="Assets\Scripts\CollectibleBase.cs" />
+     <Compile Include="Assets\Scripts\SpeedIncrease.cs" />
+     <Compile Include="Assets\Scripts\PowerUpBase.cs" />
+     <Compile Include="Assets\Scripts\Treasure.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2020.2.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

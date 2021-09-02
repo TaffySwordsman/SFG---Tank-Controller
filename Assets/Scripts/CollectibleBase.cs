@@ -37,7 +37,7 @@ public abstract class CollectibleBase : MonoBehaviour
         }
     }
 
-    private void Feedback(){
+    protected void Feedback(){
         //particles
         if(_collectParticles != null){
             _collectParticles = Instantiate(_collectParticles, transform.position, Quaternion.identity);

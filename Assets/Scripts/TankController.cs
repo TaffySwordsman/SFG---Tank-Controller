@@ -10,8 +10,10 @@ public class TankController : MonoBehaviour
     [SerializeField] private GameObject _bullet;
     [SerializeField] ParticleSystem _fireFx;
     [SerializeField] AudioClip _fireSound;
+    private Vector3 movement;
 
-    public float MaxSpeed{
+    public float MaxSpeed
+    {
         get => _maxSpeed;
         set => _maxSpeed = value;
     }
@@ -23,20 +25,22 @@ public class TankController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Update() {
-        if(Input.GetButtonDown("Fire1")){
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
             Fire();
         }
-            
+
     }
 
     private void FixedUpdate()
     {
         MoveTank();
-        TurnTank();
     }
 
-    private void Fire(){
+    private void Fire()
+    {
         Instantiate(_bullet, _firePoint.position, _firePoint.rotation);
 
         if (_fireFx != null)
@@ -52,22 +56,23 @@ public class TankController : MonoBehaviour
 
     public void MoveTank()
     {
-        // calculate the move amount
-        float moveAmountThisFrame = Input.GetAxis("Vertical") * _maxSpeed;
-        // create a vector from amount and direction
-        Vector3 moveOffset = transform.forward * moveAmountThisFrame;
-        // apply vector to the rigidbody
-        _rb.MovePosition(_rb.position + moveOffset);
-        // technically adjusting vector is more accurate! (but more complex)
-    }
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = 0;
+        movement.z = Input.GetAxisRaw("Vertical");
+        //Nerf double movement bug
+        if(movement.magnitude > 1)
+            movement = Vector3.Scale(movement, new Vector3(0.8f, 0, 0.8f));
 
-    public void TurnTank()
-    {
-        // calculate the turn amount
-        float turnAmountThisFrame = Input.GetAxis("Horizontal") * _turnSpeed;
-        // create a Quaternion from amount and direction (x,y,z)
-        Quaternion turnOffset = Quaternion.Euler(0, turnAmountThisFrame, 0);
-        // apply quaternion to the rigidbody
-        _rb.MoveRotation(_rb.rotation * turnOffset);
+        Vector3 moveDirection = movement * _maxSpeed;
+
+        _rb.MovePosition(_rb.position + moveDirection);
+
+        if (movement != Vector3.zero)
+        {
+            Quaternion moveRotation = Quaternion.Slerp(this.transform.rotation,
+                                                    Quaternion.LookRotation(moveDirection),
+                                                    Time.deltaTime * _turnSpeed);
+            _rb.MoveRotation(moveRotation);
+        }
     }
 }

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(TankController))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] int _maxHealth = 3;
     int _currentHealth;
@@ -42,7 +40,8 @@ public class Player : MonoBehaviour
         Debug.Log("Player's health: " + _currentHealth);
     }
 
-    public void DecreaseHealth(int amount){
+    public void TakeDamage(int amount)
+    {
         if(!_invincible){
             _currentHealth -= amount;
             Debug.Log("Player's health: " + _currentHealth);
@@ -73,5 +72,4 @@ public class Player : MonoBehaviour
         _body.GetComponent<MeshRenderer>().material = newColor;
         _turret.GetComponent<MeshRenderer>().material = newColor;
     }
-
 }

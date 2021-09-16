@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     protected virtual void PlayerImpact(Player player){
-        player.DecreaseHealth(_damageAmount);
+        player.TakeDamage(_damageAmount);
     }
 
     private void ImpactFeedback(){

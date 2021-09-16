@@ -36,23 +36,25 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Treasure.cs" />
-     <Compile Include="Assets\Scripts\CollectibleBase.cs" />
+     <Compile Include="Assets\Scripts\Collectibles\Treasure.cs" />
+     <Compile Include="Assets\Scripts\Collectibles\CollectibleBase.cs" />
      <Compile Include="Assets\Scripts\TankController.cs" />
      <Compile Include="Assets\Scripts\Slower.cs" />
-     <Compile Include="Assets\Scripts\DisplayTreasure.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Collectibles\DisplayTreasure.cs" />
      <Compile Include="Assets\Scripts\Invincibility.cs" />
-     <Compile Include="Assets\Scripts\SpeedIncrease.cs" />
+     <Compile Include="Assets\Scripts\Collectibles\SpeedIncrease.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Killer.cs" />
      <Compile Include="Assets\Scripts\AudioHelper.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
-     <Compile Include="Assets\Scripts\HealthIncrease.cs" />
-     <Compile Include="Assets\Scripts\PowerUpBase.cs" />
-     <Compile Include="Assets\Scripts\Inventory.cs" />
-     <Compile Include="Assets\Scripts\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Collectibles\HealthIncrease.cs" />
      <Compile Include="Assets\Scripts\Missile.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Collectibles\PowerUpBase.cs" />
+     <Compile Include="Assets\Scripts\Collectibles\Inventory.cs" />
+     <Compile Include="Assets\Scripts\Projectile.cs" />
+     <Compile Include="Assets\Scripts\AimAtMouse.cs" />
+     <Compile Include="Assets\Scripts\IDamageable.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

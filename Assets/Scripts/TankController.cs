@@ -6,6 +6,9 @@ public class TankController : MonoBehaviour
 {
     [SerializeField] float _turnSpeed = 2f;
     [SerializeField] float _maxSpeed = .25f;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bullet;
+
     public float MaxSpeed{
         get => _maxSpeed;
         set => _maxSpeed = value;
@@ -18,10 +21,21 @@ public class TankController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
+    private void Update() {
+        if(Input.GetButtonDown("Fire1")){
+            Fire();
+        }
+            
+    }
+
     private void FixedUpdate()
     {
         MoveTank();
         TurnTank();
+    }
+
+    private void Fire(){
+        Instantiate(bullet, firePoint.position, firePoint.rotation);
     }
 
     public void MoveTank()

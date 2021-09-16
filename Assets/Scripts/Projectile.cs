@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     protected Rigidbody rb;
-
+    [SerializeField] private float lifeTime = 5f;
     [SerializeField] private float _speed = 5f;
     public float Speed{
         get { return _speed; }
@@ -22,6 +22,7 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.velocity = transform.forward * _speed;
+        Destroy(gameObject, lifeTime);
     }
 
     public void SetVelocity(float value) {

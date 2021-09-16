@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
     protected Rigidbody rb;
     [SerializeField] private float lifeTime = 5f;
     [SerializeField] private float _speed = 5f;
+    [SerializeField] private int _damage = 1;
+
     public float Speed{
         get { return _speed; }
         set {
@@ -27,5 +29,17 @@ public class Projectile : MonoBehaviour
 
     public void SetVelocity(float value) {
         Speed = value;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        gameObject.SetActive(false);
+        //when hitting an Entity, damage it and disable projectile
+        IDamageable entity = other.gameObject.GetComponent<IDamageable>();
+        if (entity != null)
+        {
+            entity?.TakeDamage(_damage);
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
+    [SerializeField] private int _health;
     [SerializeField] int _damageAmount = 1;
     [SerializeField] ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
@@ -45,5 +44,17 @@ public class Enemy : MonoBehaviour
         if(_impactSound != null){
             AudioHelper.PlayClip2D(_impactSound, 1f);
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        _health -= amount;
+        if(_health <= 0)
+            Kill();
+    }
+
+    public void Kill()
+    {
+        throw new System.NotImplementedException();
     }
 }

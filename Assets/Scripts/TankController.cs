@@ -6,8 +6,10 @@ public class TankController : MonoBehaviour
 {
     [SerializeField] float _turnSpeed = 2f;
     [SerializeField] float _maxSpeed = .25f;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform _firePoint;
+    [SerializeField] private GameObject _bullet;
+    [SerializeField] ParticleSystem _fireFx;
+    [SerializeField] AudioClip _fireSound;
 
     public float MaxSpeed{
         get => _maxSpeed;
@@ -35,7 +37,17 @@ public class TankController : MonoBehaviour
     }
 
     private void Fire(){
-        Instantiate(bullet, firePoint.position, firePoint.rotation);
+        Instantiate(_bullet, _firePoint.position, _firePoint.rotation);
+
+        if (_fireFx != null)
+        {
+            Instantiate(_fireFx, _firePoint.position, _firePoint.rotation);
+        }
+
+        if (_fireSound != null)
+        {
+            AudioHelper.PlayClip2D(_fireSound, 1f);
+        }
     }
 
     public void MoveTank()

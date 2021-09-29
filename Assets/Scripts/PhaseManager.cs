@@ -7,8 +7,8 @@ using System;
 public class PhaseManager : MonoBehaviour
 {
     public event Action<int> PhaseChange = delegate { };
-    public UnityEvent Phase1;
     int phase = 0, curHealth, maxHealth;
+    [SerializeField] BossController _boss = null;
     [SerializeField] MeshRenderer CRT;
     [SerializeField] Color phase0Color, phase1Color, phase2Color, deathColor;
     private Material screenMat;
@@ -22,7 +22,7 @@ public class PhaseManager : MonoBehaviour
         _health = GetComponent<DamageableObject>();
         _health.OnTakeDamage += Damaged;
         PhaseChange += ChangePhase;
-        Phase1?.Invoke();
+        _boss.ReadyMissiles.Invoke();
     }
 
     void Update()
@@ -43,8 +43,10 @@ public class PhaseManager : MonoBehaviour
         else if (curHealth <= maxHealth * phase1Health)
         {
             screenMat.color = Color.Lerp(phase1Color, phase2Color, Mathf.InverseLerp(maxHealth * phase1Health, maxHealth * phase2Health, curHealth));
-            if (phase == 0)
+            if (phase == 0){
                 PhaseChange.Invoke(1);
+                _boss.UnreadyMissiles.Invoke();
+            }
         }
         else
         {

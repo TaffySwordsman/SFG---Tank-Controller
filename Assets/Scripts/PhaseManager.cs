@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 public class PhaseManager : MonoBehaviour
 {
     public event Action<int> PhaseChange = delegate { };
+    public UnityEvent Phase1;
     int phase = 0, curHealth, maxHealth;
     [SerializeField] MeshRenderer CRT;
     [SerializeField] Color phase0Color, phase1Color, phase2Color, deathColor;
@@ -20,6 +22,7 @@ public class PhaseManager : MonoBehaviour
         _health = GetComponent<DamageableObject>();
         _health.OnTakeDamage += Damaged;
         PhaseChange += ChangePhase;
+        Phase1?.Invoke();
     }
 
     void Update()

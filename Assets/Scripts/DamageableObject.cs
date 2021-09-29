@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
 public class DamageableObject : MonoBehaviour, IDamageable
 {
+    public event Action OnTakeDamage = delegate{ };
     [SerializeField] private int _maxHealth = 3;
     [SerializeField] private int _curHealth;
     [SerializeField] ParticleSystem _impactParticles;
@@ -16,6 +18,7 @@ public class DamageableObject : MonoBehaviour, IDamageable
     public void TakeDamage(int amount)
     {
         _curHealth -= amount;
+        OnTakeDamage.Invoke();
 
         //particles
         if (_curHealth > 0)
@@ -23,6 +26,13 @@ public class DamageableObject : MonoBehaviour, IDamageable
 
         if (_curHealth <= 0)
             Kill();
+    }
+
+    public int GetHealth(){
+        return _curHealth;
+    }
+    public int GetMaxHealth(){
+        return _maxHealth;
     }
 
     private void ImpactFeedback()

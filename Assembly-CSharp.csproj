@@ -36,13 +36,16 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AimAtMouse.cs" />
      <Compile Include="Assets\Scripts\Collectibles\Treasure.cs" />
      <Compile Include="Assets\Scripts\Collectibles\CollectibleBase.cs" />
      <Compile Include="Assets\Scripts\TankController.cs" />
      <Compile Include="Assets\Scripts\Slower.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Collectibles\DisplayTreasure.cs" />
+     <Compile Include="Assets\Scripts\IDamageable.cs" />
      <Compile Include="Assets\Scripts\Invincibility.cs" />
+     <Compile Include="Assets\Scripts\DamageableObject.cs" />
      <Compile Include="Assets\Scripts\Collectibles\SpeedIncrease.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Killer.cs" />
@@ -53,9 +56,8 @@
      <Compile Include="Assets\Scripts\Collectibles\PowerUpBase.cs" />
      <Compile Include="Assets\Scripts\Collectibles\Inventory.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
-     <Compile Include="Assets\Scripts\AimAtMouse.cs" />
-     <Compile Include="Assets\Scripts\IDamageable.cs" />
-     <Compile Include="Assets\Scripts\DamageableObject.cs" />
+     <Compile Include="Assets\Scripts\BossController.cs" />
+     <Compile Include="Assets\Scripts\PhaseManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

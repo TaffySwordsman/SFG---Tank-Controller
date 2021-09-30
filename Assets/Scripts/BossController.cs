@@ -6,9 +6,8 @@ using UnityEngine.Events;
 public class BossController : MonoBehaviour
 {
     [SerializeField] bool moving = false;
-    [SerializeField] Transform silo1, silo2;
     [SerializeField] float speed = 5f;
-    public UnityEvent ReadyMissiles, UnreadyMissiles, FireMissiles, HandSweep, HandSlam, Alternate1, Alternate2;
+    public UnityEvent ReadyMissiles, UnreadyMissiles, FireMissiles, HandSweep, HandSlam, Alternate1, Alternate2, HideHead, ShowHead;
     float randLocation = 0.0f;
     void Start()
     {
@@ -41,13 +40,10 @@ public class BossController : MonoBehaviour
 
     void RandomizeMovement()
     {
-        var tempRandom = randLocation;
-
         if(moving)
             moving = false;
         else{moving = true;}
 
         randLocation = Random.Range(-90, 90);
-
     }
 }

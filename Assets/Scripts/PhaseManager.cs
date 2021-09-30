@@ -8,6 +8,7 @@ public class PhaseManager : MonoBehaviour
 {
     public event Action<int> PhaseChange = delegate { };
     int phase = 0, curHealth, maxHealth;
+    bool headRaised = false;
     [SerializeField] BossController _boss = null;
     [SerializeField] MeshRenderer CRT;
     [SerializeField] Color phase0Color, phase1Color, phase2Color, deathColor;
@@ -15,25 +16,32 @@ public class PhaseManager : MonoBehaviour
     [SerializeField] [Range(0, 1)] float phase1Health, phase2Health;
     [SerializeField] GameObject[] faces = new GameObject[3];
     DamageableObject _health = null;
+    [SerializeField] DamageableObject _leftHealth, _rightHealth;
 
     private void Awake()
     {
         screenMat = CRT.materials[1];
         _health = GetComponent<DamageableObject>();
         _health.OnTakeDamage += Damaged;
+        _leftHealth.OnTakeDamage += Damaged;
+        _rightHealth.OnTakeDamage += Damaged;
         PhaseChange += ChangePhase;
         _boss.ReadyMissiles.Invoke();
-    }
-
-    void Update()
-    {
-
     }
 
     void Damaged()
     {
         curHealth = _health.GetHealth();
         maxHealth = _health.GetMaxHealth();
+        if (curHealth <= maxHealth * 0.9f  && !headRaised)
+            _boss.HideHead.Invoke();
+
+        if ((_leftHealth.GetHealth() <= _leftHealth.GetMaxHealth() * 0.5f || _rightHealth.GetHealth() <= _rightHealth.GetMaxHealth() * 0.5f) && !headRaised)
+        {
+            _boss.ShowHead.Invoke();
+            headRaised = true;
+        }
+
         if (curHealth <= maxHealth * phase2Health)
         {
             screenMat.color = Color.Lerp(phase2Color, deathColor, Mathf.InverseLerp(maxHealth * phase2Health, 0, curHealth));
@@ -43,7 +51,8 @@ public class PhaseManager : MonoBehaviour
         else if (curHealth <= maxHealth * phase1Health)
         {
             screenMat.color = Color.Lerp(phase1Color, phase2Color, Mathf.InverseLerp(maxHealth * phase1Health, maxHealth * phase2Health, curHealth));
-            if (phase == 0){
+            if (phase == 0)
+            {
                 PhaseChange.Invoke(1);
                 _boss.UnreadyMissiles.Invoke();
             }

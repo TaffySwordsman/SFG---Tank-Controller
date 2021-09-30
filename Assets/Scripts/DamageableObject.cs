@@ -1,15 +1,18 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 public class DamageableObject : MonoBehaviour, IDamageable
 {
     public event Action OnTakeDamage = delegate{ };
+    public UnityEvent HealthChanged;
     [SerializeField] private int _maxHealth = 3;
     [SerializeField] private int _curHealth;
     [SerializeField] ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
     [SerializeField] ParticleSystem _deathParticles;
     [SerializeField] AudioClip _deathSound;
+    public bool invincible = false;
 
     private void Start() {
         _curHealth = _maxHealth;
@@ -17,14 +20,15 @@ public class DamageableObject : MonoBehaviour, IDamageable
 
     public void TakeDamage(int amount)
     {
-        _curHealth -= amount;
+        if(!invincible)
+            _curHealth -= amount;
         OnTakeDamage.Invoke();
 
         //particles
         if (_curHealth > 0)
             ImpactFeedback();
 
-        if (_curHealth <= 0)
+        if (_curHealth <= 0 && !invincible)
             Kill();
     }
 

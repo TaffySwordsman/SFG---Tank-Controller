@@ -1,16 +1,20 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(TankController))]
 public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] int _maxHealth = 3;
     int _currentHealth;
+    [SerializeField] ParticleSystem _hitParticles;
     [SerializeField] ParticleSystem _deathParticles;
+    [SerializeField] AudioClip _hitSound;
     [SerializeField] AudioClip _deathSound;
     [SerializeField] GameObject _body, _turret;
     [SerializeField] Material _matBase;
     [SerializeField] Material _matInvuln;
     bool _invincible = false;
+    public UnityEvent HealthChanged;
 
     public bool Invincible{
         get { return _invincible; }
@@ -45,9 +49,21 @@ public class Player : MonoBehaviour, IDamageable
         if(!_invincible){
             _currentHealth -= amount;
             Debug.Log("Player's health: " + _currentHealth);
+            HealthChanged.Invoke();
 
             if(_currentHealth <= 0){
                 Kill();
+                return;
+            }
+
+            //particles
+            if(_hitParticles != null){
+                _hitParticles = Instantiate(_hitParticles, transform.position, Quaternion.identity);
+            }
+
+            //audio. TODO - consider Object Pooling for performance
+            if(_hitSound != null){
+                AudioHelper.PlayClip2D(_hitSound, 1f);
             }
         }
     }

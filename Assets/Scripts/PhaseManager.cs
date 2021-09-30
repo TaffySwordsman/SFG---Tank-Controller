@@ -40,6 +40,16 @@ public class PhaseManager : MonoBehaviour
         {
             _boss.ShowHead.Invoke();
             headRaised = true;
+
+            _leftHealth.invincible = true;
+            _rightHealth.invincible = true;
+        }
+
+        if(curHealth <= 0){
+            _leftHealth.invincible = false;
+            _rightHealth.invincible = false;
+            _leftHealth.Kill();
+            _rightHealth.Kill();
         }
 
         if (curHealth <= maxHealth * phase2Health)
@@ -66,6 +76,7 @@ public class PhaseManager : MonoBehaviour
     void ChangePhase(int newPhase)
     {
         phase = newPhase;
+        _boss.phase = newPhase;
 
         for (int i = 0; i < 3; i++)
         {

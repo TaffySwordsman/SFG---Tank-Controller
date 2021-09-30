@@ -10,13 +10,18 @@ public class WarningVolume : MonoBehaviour
 
     void Start()
     {
-        warningMat = GetComponent<MeshRenderer>().material;
-        main = warningMat.color;
-        warningMat.color = trans;
+        if (gameObject.activeInHierarchy)
+        {
+            warningMat = GetComponent<MeshRenderer>().material;
+            main = warningMat.color;
+            warningMat.color = trans;
+        }
     }
 
-    public void ActivateWarning(){
-        StartCoroutine(WarnPlayer());
+    public void ActivateWarning()
+    {
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(WarnPlayer());
     }
 
     IEnumerator WarnPlayer()

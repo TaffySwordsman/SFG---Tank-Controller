@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
         //when hitting an Entity, damage it and disable projectile
         IDamageable entity = other.gameObject.GetComponent<IDamageable>();
         if (entity != null)
